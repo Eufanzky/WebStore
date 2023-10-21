@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { Layout } from "../../Components/Layout";
 import { Card } from "../../Components/Card";
+import { ProductDetail } from "../../Components/ProductDetail";
 
 export const Home = () => {
   const [items, setItems] = useState(null);
@@ -20,6 +21,7 @@ export const Home = () => {
           return <Card key={index} {...item} />;
         })}
       </div>
+      <ProductDetail />
     </Layout>
   );
 };
