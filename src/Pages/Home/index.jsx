@@ -18,7 +18,7 @@ export const Home = () => {
       Home
       <div className="grid gap-4 grid-cols-4 w-full max-w-screen-lg">
         {items?.map((item, index) => {
-          return <Card key={index} {...item} />;
+          return <Card key={index} data={item} />;
         })}
       </div>
       <ProductDetail />
