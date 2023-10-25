@@ -1,11 +1,31 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import { useContext } from "react";
 import { ShoppingCartContext } from "../../Context";
 import { OrderCard } from "../OrderCard";
+import { totalPrice } from "../../utils";
 
 export const CheckoutSideMenu = () => {
   const context = useContext(ShoppingCartContext);
+  const handleDelete = (id) => {
+    const filteredProducts = context.cartProducts.filter(
+      (product) => product.id != id
+    );
+    context.setCartProducts(filteredProducts);
+  };
+
+  const handleCheckout = () => {
+    const orderToAdd = {
+      data: "01.02.23",
+      products: context.cartProducts,
+      totalProducts: context.cartProducts.length,
+      totalPrice: totalPrice(context.cartProducts),
+    };
+
+    context.setOrder([...context.order, orderToAdd]);
+    context.setCartProducts([]);
+  };
 
   return (
     <aside
@@ -22,18 +42,30 @@ export const CheckoutSideMenu = () => {
           ></XMarkIcon>
         </div>
       </div>
-      <div className="px-6 overflow-y-scroll">
-
-      {context.cartProducts.map((product) => {
-        return (
-          <OrderCard
-            key={product.id}
-            title={product.title}
-            imageUrl={product.images?.[0]}
-            price={product.price}
-          />
-        );
-      })}
+      <div className="px-6 overflow-y-scroll flex-1">
+        {context.cartProducts.map((product) => {
+          return (
+            <OrderCard
+              key={product.id}
+              id={product.id}
+              title={product.title}
+              imageUrl={product.images?.[0]}
+              price={product.price}
+              handleDelete={handleDelete}
+            />
+          );
+        })}
+      </div>
+      <div className="px-6 mb-6">
+        <p className="flex justify-between items-center mb-2">
+          <span className="font-light">Total:</span>
+          <span className="font-medium text-2xl">
+            ${totalPrice(context.cartProducts)}
+          </span>
+        </p>
+        <Link to='/my-orders/last'>
+        <button className="w-full py-3 text-white bg-black rounded-lg" onClick={() => handleCheckout()}>Checkout</button>
+        </Link>
       </div>
     </aside>
   );
