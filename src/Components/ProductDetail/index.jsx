@@ -21,7 +21,7 @@ export const ProductDetail = () => {
       <figure className="px-6">
         <img
           className="w-full h-full rounded-lg"
-          src={context.productToShow.images}
+          src={context.productToShow.images?.[0]}
           alt={context.productToShow.title}
         />
         {/* //TODO: Fix page gets bug when it cannot get images */}

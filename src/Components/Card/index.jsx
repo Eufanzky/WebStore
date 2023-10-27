@@ -55,7 +55,7 @@ export const Card = (data) => {
         </span>
         <img
           className="w-full h-full object-cover rounded-lg"
-          src={data.data.images}
+          src={data.data.images?.[0]}
           alt="headphones"
         />
         {renderIcon(data.data.id)}
