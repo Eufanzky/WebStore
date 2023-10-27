@@ -17,6 +17,7 @@ export const Navbar = () => {
         <li>
           <NavLink
             to="/"
+            
             className={({ isActive }) => {
               return isActive ? activeStyle : undefined;
             }}
@@ -46,7 +47,7 @@ export const Navbar = () => {
         </li>
         <li>
           <NavLink
-            to="/furnitures"
+            to="/furniture"
             className={({ isActive }) => {
               return isActive ? activeStyle : undefined;
             }}
@@ -56,12 +57,12 @@ export const Navbar = () => {
         </li>
         <li>
           <NavLink
-            to="/toys"
+            to="/phones"
             className={({ isActive }) => {
               return isActive ? activeStyle : undefined;
             }}
           >
-            Toys
+            Phones
           </NavLink>
         </li>
         <li>
