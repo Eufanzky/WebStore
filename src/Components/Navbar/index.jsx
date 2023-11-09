@@ -13,6 +13,18 @@ export const Navbar = () => {
   const parsedSignOut = JSON.parse(signOut);
   const isUserSignedOut = context.signOut || parsedSignOut;
 
+  //Account variables
+  const account = localStorage.getItem("account");
+  const parsedAccount = JSON.parse(account);
+
+  const noAccountInLocalStorage = parsedAccount
+    ? Object.keys(parsedAccount).length === 0
+    : true;
+  const noAccountInLocalState = context.account
+    ? Object.keys(context.account).length === 0
+    : true;
+  const hasUserAnAccount = !noAccountInLocalStorage || !noAccountInLocalState;
+
   const handleSignOut = () => {
     const strigifiedSignOut = JSON.stringify(true);
     localStorage.setItem("sign-out", strigifiedSignOut);
@@ -20,15 +32,7 @@ export const Navbar = () => {
   };
 
   const renderRightViewNavBar = () => {
-    if (isUserSignedOut) {
-      return (
-        <li>
-          <NavLink to="/sign-in" onClick={() => handleSignOut()}>
-            Sign out
-          </NavLink>
-        </li>
-      );
-    } else {
+    if (hasUserAnAccount && !isUserSignedOut) {
       return (
         <>
           <li>
@@ -47,6 +51,14 @@ export const Navbar = () => {
           </li>
         </>
       );
+    } else {
+      return (
+        <li>
+          <NavLink to="/sign-in" onClick={() => handleSignOut()}>
+            Sign In
+          </NavLink>
+        </li>
+      );
     }
   };
 
@@ -54,7 +66,9 @@ export const Navbar = () => {
     <nav className="flex justify-between items-center fixed top-0 z-10 w-full py-5 px-5 text-sm font-light bg-white">
       <ul className="flex items-center gap-3">
         <li className="font-semibold text-lg">
-          <NavLink to="/">WebStore</NavLink>
+          <NavLink to={`${isUserSignedOut ? "/sign-in" : "/"}`}>
+            WebStore
+          </NavLink>
         </li>
         <li>
           <NavLink
