@@ -2,7 +2,30 @@ import { createContext, useState, useEffect } from "react";
 
 export const ShoppingCartContext = createContext();
 
+export const initializeLocalStorage = () => {
+  const accountLocalStorage = localStorage.getItem("account");
+  const signOutLocalStorage = localStorage.getItem("sign-out");
+  let parsedAccount;
+  let parsedSignOut;
+  if (!accountLocalStorage) {
+    localStorage.setItem("account", JSON.stringify({}));
+    parsedAccount = {};
+  } else {
+    parsedAccount = JSON.parse(accountLocalStorage);
+  }
+
+  if (!signOutLocalStorage) {
+    localStorage.setItem("sign-out", JSON.stringify(false));
+    parsedSignOut = false;
+  } else {
+    parsedSignOut = JSON.parse(signOutLocalStorage);
+  }
+};
 export const ShoppingCartProvider = ({ children }) => {
+  //Account and sign-out global variables
+  const [account, setAccount] = useState({});
+  const [signOut, setSignOut] = useState(false);
+
   // Shopping Cart · Increment quantity
   const [count, setCount] = useState(0);
 
@@ -33,22 +56,6 @@ export const ShoppingCartProvider = ({ children }) => {
       .then((data) => setItems(data));
   }, []);
 
-  // const [filteredItems, setFilteredItems] = useState(null);
-
-  // // Get products by title
-  // const [searchByTitle, setSearchByTitle] = useState(null);
-
-  // const filteredItemsByTitle = (items, searchByTitle) => {
-  //   return items?.filter((item) =>
-  //     item.title.toLowerCase().includes(searchByTitle.toLowerCase())
-  //   );
-  // };
-
-  // useEffect(() => {
-  //   if (searchByTitle)
-  //     setFilteredItems(filteredItemsByTitle(items, searchByTitle));
-  // }, [items, searchByTitle]);
-
   return (
     <ShoppingCartContext.Provider
       value={{
@@ -68,9 +75,10 @@ export const ShoppingCartProvider = ({ children }) => {
         setOrder,
         items,
         setItems,
-        // searchByTitle,
-        // setSearchByTitle,
-        // filteredItems,
+        account,
+        setAccount,
+        signOut,
+        setSignOut,
       }}
     >
       {children}
