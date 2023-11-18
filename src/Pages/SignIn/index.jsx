@@ -46,11 +46,11 @@ export const SignIn = () => {
       <div className="clase-especial-1 w-80 h-[450px] flex flex-col items-center justify-evenly sm:border-2 sm:border-black rounded-md font-medium py-10 px-10">
         <p className="w-full flex flex-row justify-start mt-10">
           <span className="mr-4">Email: </span>
-          <span>{parsedAccount?.email}</span>
+          <span className="border-b-2 border-black">{parsedAccount?.email}</span>
         </p>
         <p className="w-full flex flex-row justify-start mb-10">
           <span className="mr-4">Password: </span>
-          <span>{parsedAccount?.password}</span>
+          <span className="border-b-2 border-black">{parsedAccount?.password}</span>
         </p>
         <Link to="/" className="w-full">
           <button
@@ -77,7 +77,7 @@ export const SignIn = () => {
 
   const renderCreateUserInfo = () => {
     return (
-      <form ref={form} className="flex flex-col gap-4 w-80">
+      <form ref={form} className="flex flex-col gap-4 w-72">
         <div className="flex flex-col gap-1">
           <label htmlFor="name" className="font-light text-sm">
             Your Name
@@ -132,7 +132,7 @@ export const SignIn = () => {
 
   return (
     <Layout>
-      <h1 className="font-medium text-xl mb-10">Welcome</h1>
+      <h1 className="font-medium text-xl mt-12 mb-10">Welcome</h1>
       {renderView()}
     </Layout>
   );
