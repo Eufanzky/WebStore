@@ -40,10 +40,10 @@ export const Home = () => {
       <input
         type="text"
         placeholder="Search a product"
-        className="rounded-lg border border-black w-80 p-4 mb-4 focus:outline-none"
+        className="rounded-lg border border-black w-64 p-4 mb-6 focus:outline-none sm:w-80"
         onChange={(event) => setSearchValue(event.target.value)}
       />
-      <div className="grid gap-4 grid-cols-4 w-full max-w-screen-lg">
+      <div className="grid gap-4 grid-cols-1 justify-center justify-items-center max-w-screen-lg sm:grid-cols-2 lg:grid-cols-4">
         {filteredItems < 1 ? (
           <p className="text-center text-2xl col-span-4">
             There are not coincidences for your search

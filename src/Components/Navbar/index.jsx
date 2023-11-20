@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useContext } from "react";
 import { ShoppingCartContext } from "../../Context";
-import { ShoppingBagIcon } from "@heroicons/react/24/solid";
+import { ShoppingBagIcon, Bars3Icon } from "@heroicons/react/24/solid";
 import ShoppingCart from "../ShoppingCart";
+import { Menu } from "../Menu/Menu";
 
 export const Navbar = () => {
   const context = useContext(ShoppingCartContext);
@@ -31,6 +32,12 @@ export const Navbar = () => {
     localStorage.setItem("sign-out", strigifiedSignOut);
     context.setSignOut(true);
   };
+
+  //menu
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen)
+  }
 
   const renderRightViewNavBar = () => {
     if (hasUserAnAccount && !isUserSignedOut) {
@@ -62,94 +69,87 @@ export const Navbar = () => {
   };
 
   return (
-    <nav className="flex justify-between items-center fixed top-0 z-10 w-full py-5 px-5 text-sm font-light bg-white">
-      <ul className="flex items-center gap-3">
-        <li className="font-semibold text-lg">
-          <NavLink to={`${isUserSignedOut ? "/sign-in" : "/"}`}>
-            WebStore
-          </NavLink>
+    <>
+      <nav className="flex justify-between items-center fixed top-0 z-10 w-full py-5 px-5 text-sm font-light bg-white">
+        <ul className="flex items-center gap-3">
+          <li className="font-semibold text-lg">
+            <NavLink to={`${isUserSignedOut ? "/sign-in" : "/"}`}>
+              WebStore
+            </NavLink>
+          </li>
+          <li className="hidden lg:flex">
+            <NavLink
+              to="/"
+              className={({ isActive }) => {
+                return isActive ? activeStyle : undefined;
+              }}
+            >
+              All
+            </NavLink>
+          </li>
+          <li className="hidden lg:flex">
+            <NavLink
+              to="/clothes"
+              className={({ isActive }) => {
+                return isActive ? activeStyle : undefined;
+              }}
+            >
+              Clothes
+            </NavLink>
+          </li>
+          <li className="hidden lg:flex">
+            <NavLink
+              to="/electronics"
+              className={({ isActive }) => {
+                return isActive ? activeStyle : undefined;
+              }}
+            >
+              Electronics
+            </NavLink>
+          </li>
+          <li className="hidden lg:flex">
+            <NavLink
+              to="/furniture"
+              className={({ isActive }) => {
+                return isActive ? activeStyle : undefined;
+              }}
+            >
+              Furnitures
+            </NavLink>
+          </li>
+          <li className="hidden lg:flex">
+            <NavLink
+              to="/phones"
+              className={({ isActive }) => {
+                return isActive ? activeStyle : undefined;
+              }}
+            >
+              Phones
+            </NavLink>
+          </li>
+          <li className="hidden lg:flex">
+            <NavLink
+              to="/others"
+              className={({ isActive }) => {
+                return isActive ? activeStyle : undefined;
+              }}
+            >
+              Others
+            </NavLink>
+          </li>
+        </ul>
+        <ul className="hidden items-center gap-3 lg:flex">
+          {renderRightViewNavBar()}
+          <li className="flex">
+            <ShoppingCart />
+          </li>
+        </ul>
+
+        <li className="flex lg:hidden" onClick={() => toggleMenu()}>
+          <Bars3Icon className="w-6 h-6 fill-none stroke-black cursor-pointer" />
         </li>
-        <li>
-          <NavLink
-            to="/"
-            className={({ isActive }) => {
-              return isActive ? activeStyle : undefined;
-            }}
-          >
-            All
-          </NavLink>
-        </li>
-        <li>
-          <NavLink
-            to="/clothes"
-            className={({ isActive }) => {
-              return isActive ? activeStyle : undefined;
-            }}
-          >
-            Clothes
-          </NavLink>
-        </li>
-        <li>
-          <NavLink
-            to="/electronics"
-            className={({ isActive }) => {
-              return isActive ? activeStyle : undefined;
-            }}
-          >
-            Electronics
-          </NavLink>
-        </li>
-        <li>
-          <NavLink
-            to="/furniture"
-            className={({ isActive }) => {
-              return isActive ? activeStyle : undefined;
-            }}
-          >
-            Furnitures
-          </NavLink>
-        </li>
-        <li>
-          <NavLink
-            to="/phones"
-            className={({ isActive }) => {
-              return isActive ? activeStyle : undefined;
-            }}
-          >
-            Phones
-          </NavLink>
-        </li>
-        <li>
-          <NavLink
-            to="/others"
-            className={({ isActive }) => {
-              return isActive ? activeStyle : undefined;
-            }}
-          >
-            Others
-          </NavLink>
-        </li>
-      </ul>
-      <ul className="flex items-center gap-3">
-        {renderRightViewNavBar()}
-        {/* <li>
-          <NavLink to="/">eufanzky@platzi.com</NavLink>
-        </li>
-        <li>
-          <NavLink to="/my-orders">My orders</NavLink>
-        </li>
-        <li>
-          <NavLink to="/my-account">My account</NavLink>
-        </li>
-        <li>
-          <NavLink to="/sign-in" onClick={() => handleSignOut()}>
-            Sign out
-          </NavLink>
-        </li> */}
-        <li className="flex">
-          <ShoppingCart />
-        </li>
-      </ul>
-    </nav>
+      </nav>
+      {isMenuOpen ? <Menu /> : <></>}
+    </>
   );
 };
