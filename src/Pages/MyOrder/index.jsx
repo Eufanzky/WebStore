@@ -20,7 +20,7 @@ export const MyOrder = () => {
         </Link>
         <h1>MyOrders</h1>
       </div>
-      <div className="flex flex-col w-80">
+      <div className="flex flex-col w-72 sm:w-80">
         {context.order?.[index]?.products.map((product) => (
           <OrderCard
             key={product.id}

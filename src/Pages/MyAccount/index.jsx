@@ -25,7 +25,7 @@ export const MyAccount = () => {
 
   const renderUserInfo = () => {
     return (
-      <div className="flex flex-col w-80">
+      <div className="flex flex-col w-72 sm:w-80">
         <p>
           <span className="font-light text-sm">Name: </span>
           <span>{parsedAccount?.name}</span>
@@ -45,7 +45,7 @@ export const MyAccount = () => {
   };
   const renderEditUserInfo = () => {
     return (
-      <form ref={form} className="flex flex-col gap-4 w-80">
+      <form ref={form} className="flex flex-col gap-4 w-72 sm:w-80">
         <div className="flex flex-col gap-1">
           <label htmlFor="name" className="font-light text-sm">
             Your name:

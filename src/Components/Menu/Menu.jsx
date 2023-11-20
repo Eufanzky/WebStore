@@ -45,6 +45,9 @@ export const Menu = () => {
               Sign out
             </NavLink>
           </li>
+          <li className="flex">
+            <ShoppingCart />
+          </li>
         </>
       );
     } else {
@@ -119,6 +122,7 @@ export const Menu = () => {
           Others
         </NavLink>
       </li>
+      <div className="flex w-52 h-0.5 bg-slate-300"></div>
       {renderRightViewNavBar()}
     </div>
   );
